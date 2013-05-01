@@ -598,7 +598,7 @@
 
 		hide: function() {
 			this.log("hiding");
-			if (this.closeable) {
+			if (this.args.closeable) {
 				this.el.modal("hide");
 			} else {
 				this.el.hide();
@@ -608,7 +608,7 @@
 
 		close: function() {
 			this.log("closing");
-			if (this.closeable) {
+			if (this.args.closeable) {
 				this.el.modal("hide");
 			} else {
 				this.el.hide();
@@ -623,7 +623,7 @@
 				this.setCard(0);
 				this._firstShow = false;
 			}
-			if (this.closeable) {
+			if (this.args.closeable) {
 				this.el.modal();
 			} else {
 				this.el.show();
