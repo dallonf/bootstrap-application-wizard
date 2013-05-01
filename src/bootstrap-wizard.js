@@ -391,7 +391,8 @@
 				backText: "Back",
 				submitText: "Submit",
 				submittingText: "Submitting...",
-			}
+			},
+			closeable: true
 		};
 		$.extend(this.args, args || {});
 
@@ -419,6 +420,10 @@
 
 
 		// construction
+
+		if (!this.args.closeable) {
+			this.closeButton.hide();
+		}
 
 
 		this._createCards();
@@ -581,13 +586,21 @@
 
 		hide: function() {
 			this.log("hiding");
-			this.el.modal("hide");
+			if (this.closeable) {
+				this.el.modal("hide");
+			} else {
+				this.el.hide();
+			}
 			return this;
 		},
 
 		close: function() {
 			this.log("closing");
-			this.el.modal("hide");
+			if (this.closeable) {
+				this.el.modal("hide");
+			} else {
+				this.el.hide();
+			}
 			return this;
 		},
 
@@ -598,7 +611,12 @@
 				this.setCard(0);
 				this._firstShow = false;
 			}
-			this.el.modal();
+			if (this.closeable) {
+				this.el.modal();
+			} else {
+				this.el.show();
+			}
+			
 			return this;
 		},
 
