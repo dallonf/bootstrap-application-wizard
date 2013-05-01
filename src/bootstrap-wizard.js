@@ -140,8 +140,6 @@
 
 		enable: function() {
 			this.log("enabling");
-			this.nav.addClass("active");
-			this.active = true;
 			this._disabled = false;
 			this.trigger("enabled");
 			return this;
@@ -234,8 +232,8 @@
 		 * wizard card itself, in the form of a data- attribute
 		 */
 		callListener: function(name) {
-            // a bug(?) in jquery..can't access data-<name> if name is camelCase
-		    name = name.toLowerCase();
+						// a bug(?) in jquery..can't access data-<name> if name is camelCase
+				name = name.toLowerCase();
 
 			this.log("looking for listener " + name);
 			var listener = window[this.el.data(name)];
@@ -700,10 +698,16 @@
 			var next;
 
 			if (current) {
+				/* 
+				 * Trigger the beforeIncrement event so cards can change the flow by enabling and disabling
+				 * other cards
+				 */
+				current.trigger('beforeIncrement');
+
 				/*
 				 * loop until we find a card that isn't disabled
 				 */
-			    this.log("searching for valid next card");
+					this.log("searching for valid next card");
 				while (true) {
 					next = getNext(current);
 					if (next) {
@@ -808,7 +812,7 @@
 				if (this.args.progressBarCurrent) {
 					var last_percent = this.percentComplete;
 					this.percentComplete = i * 100.0 / this._cards.length;
-					this.updateProgressBar(this.percentComplete);					
+					this.updateProgressBar(this.percentComplete);         
 				}
 				else {
 					var last_percent = this.percentComplete;
@@ -985,22 +989,22 @@
 		submitSuccess: function() {
 			this.log("submit success");
 			this._submitting = false;
-    		this.showSubmitCard("success");
-    		this.trigger("submitSuccess");
+				this.showSubmitCard("success");
+				this.trigger("submitSuccess");
 		},
 
 		submitFailure: function() {
 			this.log("submit failure");
 			this._submitting = false;
-    		this.showSubmitCard("failure");
-    		this.trigger("submitFailure");
+				this.showSubmitCard("failure");
+				this.trigger("submitFailure");
 		},
 
 		submitError: function() {
 			this.log("submit error");
 			this._submitting = false;
-    		this.showSubmitCard("error");
-    		this.trigger("submitError");
+				this.showSubmitCard("error");
+				this.trigger("submitError");
 		},
 
 
@@ -1055,21 +1059,21 @@
 		 * copy how this function works
 		 */
 		_defaultSubmit: function(wizard) {
-	    	$.ajax({
-	    		type: "POST",
-	    		url: wizard.args.submitUrl,
-	    		data: wizard.serialize(),
-	    		dataType: "json",
-	    		success: function(resp) {
-		    		wizard.submitSuccess();
-		    		wizard.hideButtons();
-		    		wizard.updateProgressBar(0);
-		    	},
-		    	error: function() {
-		    		wizard.submitFailure();
-		    		wizard.hideButtons();
-		    	},
-	    	});
+				$.ajax({
+					type: "POST",
+					url: wizard.args.submitUrl,
+					data: wizard.serialize(),
+					dataType: "json",
+					success: function(resp) {
+						wizard.submitSuccess();
+						wizard.hideButtons();
+						wizard.updateProgressBar(0);
+					},
+					error: function() {
+						wizard.submitFailure();
+						wizard.hideButtons();
+					},
+				});
 		}
 
 	};

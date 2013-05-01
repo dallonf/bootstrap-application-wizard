@@ -19,7 +19,7 @@
 		 
 		    <div class="wizard-card" data-cardname="data-source-select">
 		        <h3>Select a DataSource</h3>
-		       	<select>
+		       	<select class="data-source">
 		       		<option>Select one...</option>	
 		       		<option value="data-source-1">DataSource1</option>
 		       		<option value="data-source-2">DataSource2</option>
@@ -61,10 +61,32 @@
 			closeable: false
 		});
 
-		wizard.cards['data-source-select'].on('validate', function() {
-			debugger;
-			wizard.cards['data-source-create-mysql'].disable();
-			wizard.cards['data-source-create-mongodb'].disable();	
+		wizard.cards['data-source-select'].on('reload', function() {
+			wizard.cards['data-source-select'].el.find('.data-source').change();
+		});
+
+		wizard.cards['data-source-select'].el.find('.data-source').change(function() {
+			switch ($(this).val()) {
+				case 'create-mysql':
+					wizard.cards['data-source-create-mysql'].enable();
+					wizard.cards['data-source-create-mongodb'].disable();
+					break;
+				case 'create-mongodb':
+					wizard.cards['data-source-create-mysql'].disable();
+					wizard.cards['data-source-create-mongodb'].enable();
+					break;
+				default:
+					wizard.cards['data-source-create-mysql'].disable();
+					wizard.cards['data-source-create-mongodb'].disable();
+					break;
+			}
+			wizard.cards['schema-select'].unmarkVisited();
+			wizard.cards['schema-select'].reload();
+		});
+
+		wizard.cards['schema-select'].on('unmarkVisited', function() {
+			wizard.cards['mapping-define'].unmarkVisited();
+			wizard.cards['mapping-define'].reload();
 		});
 
 		
@@ -77,3 +99,4 @@
 
 	</body>
 </html>
+
