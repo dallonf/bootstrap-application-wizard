@@ -60,6 +60,14 @@
 		var wizard = $('#some-wizard').wizard({
 			closeable: false
 		});
+
+		wizard.cards['data-source-select'].on('validate', function() {
+			debugger;
+			wizard.cards['data-source-create-mysql'].disable();
+			wizard.cards['data-source-create-mongodb'].disable();	
+		});
+
+		
 		wizard.show();
 	});
 
