@@ -36,8 +36,14 @@
 		this.el = card;
 		this.title = card.find("h3").first().text();
 		this.name = card.data("cardname") || this.title;
+		this.group = card.data("cardgroup");
 
 		this.nav = this._createNavElement(this.title, index);
+
+		if (this.group) {
+			this.nav.hide();
+			this.groupNav = wizard.cards[this.group].nav;
+		}
 
 		this._disabled = false;
 		this._loaded = false;
@@ -50,6 +56,8 @@
 			this.log("selecting");
 			if (!this.isSelected()) {
 				this.nav.addClass("active");
+				this.active = true;
+				if (this.groupNav) this.groupNav.addClass("active");
 				this.el.show();
 
 				if (!this._loaded) {
@@ -123,6 +131,8 @@
 
 		deselect: function() {
 			this.nav.removeClass("active");
+			if (this.groupNav) this.groupNav.removeClass("active");
+			this.active = false;
 			this.el.hide();
 			this.trigger("deselect");
 			return this;
@@ -131,6 +141,7 @@
 		enable: function() {
 			this.log("enabling");
 			this.nav.addClass("active");
+			this.active = true;
 			this._disabled = false;
 			this.trigger("enabled");
 			return this;
@@ -140,6 +151,7 @@
 			this.log("disabling");
 			this._disabled = true;
 			this.nav.removeClass("active already-visited");
+			this.active = false;
 			if (hideCard) {this.el.hide();}
 			this.trigger("disabled");
 			return this;
@@ -154,7 +166,7 @@
 		},
 
 		isSelected: function() {
-			return this.nav.hasClass("active");
+			return this.active;
 		},
 
 		reload: function() {
@@ -339,7 +351,7 @@
 		},
 
 		isActive: function() {
-			return this.nav.hasClass("active");
+			return this.active;
 		},
 	};
 

@@ -19,7 +19,23 @@
 		 
 		    <div class="wizard-card" data-cardname="data-source-select">
 		        <h3>Select a DataSource</h3>
-		        Some content
+		       	<select>
+		       		<option>Select one...</option>	
+		       		<option value="data-source-1">DataSource1</option>
+		       		<option value="data-source-2">DataSource2</option>
+		       		<option value="create-mysql">Create new MySQL data source...</option>
+		       		<option value="create-mongodb">Create new MongoDB data source...</option>
+		       	</select>
+		    </div>
+
+		    <div class="wizard-card" data-cardname="data-source-create-mysql" data-cardgroup="data-source-select">
+		    	<h3>Create a MySQL data source</h3>
+		    	<p><em>Configuration information...</em></p>
+		    </div>
+
+		    <div class="wizard-card" data-cardname="data-source-create-mongodb" data-cardgroup="data-source-select">
+		    	<h3>Create a MongoDB data source</h3>
+		    	<p><em>Configuration information...</em></p>
 		    </div>
 		 
 		    <div class="wizard-card" data-cardname="schema-select">
@@ -46,6 +62,8 @@
 		});
 		wizard.show();
 	});
+
+
 </script>
 
 
