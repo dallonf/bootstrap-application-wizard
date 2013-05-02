@@ -271,13 +271,20 @@
 				var v = el.data("validate");
 				if (!v) {return;}
 
+				v = v.split('.');
+
 				var ret = {
 					status: true,
 					title: "Error",
 					msg: ""
 				};
 
-				var vret = window[v](el);
+				var validationFunc = window;
+				while (v.length) {
+					validationFunc = validationFunc[v.shift()];
+				}
+
+				var vret = validationFunc(el);
 				$.extend(ret, vret);
 
 				if (!ret.status) {

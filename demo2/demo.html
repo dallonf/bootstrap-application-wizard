@@ -19,8 +19,8 @@
 		 
 		    <div class="wizard-card" data-cardname="data-source-select">
 		        <h3>Select a DataSource</h3>
-		       	<select class="data-source">
-		       		<option>Select one...</option>	
+		       	<select class="data-source" data-validate="validation.dataSource">
+		       		<option value="">Select one...</option>	
 		       		<option value="data-source-1">DataSource1</option>
 		       		<option value="data-source-2">DataSource2</option>
 		       		<option value="create-mysql">Create new MySQL data source...</option>
@@ -56,6 +56,16 @@
 
 
 <script type="text/javascript">
+	var validation = {
+		dataSource: function(el) {
+			if (el.val()) {
+				return {status: true};
+			} else {
+				return {status: false, msg: "You must select a data source"};
+			}
+		}
+	}
+
 	$(document).ready(function() {
 		var wizard = $('#some-wizard').wizard({
 			closeable: false
