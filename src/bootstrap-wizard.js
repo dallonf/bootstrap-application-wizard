@@ -794,20 +794,22 @@
 						 * first card to have an error
 						 */
 						while (cardToValidate.index != newCard.index) {
-							/*
-							 * unless we're validating the card that we're
-							 * leaving, we need to select the card, so that
-							 * any validators that trigger errorPopovers can
-							 * display correctly
-							 */
-							if (cardToValidate.index != currentCard.index) {
-								cardToValidate.prev.deselect();
-								cardToValidate.prev.markVisited();
-								cardToValidate.select();
-							}
-							ok = cardToValidate.validate();
-							if (!ok) {
-								return cardToValidate;
+							if (!cardToValidate.isDisabled()) {
+								/*
+								 * unless we're validating the card that we're
+								 * leaving, we need to select the card, so that
+								 * any validators that trigger errorPopovers can
+								 * display correctly
+								 */
+								if (cardToValidate.index != currentCard.index) {
+									cardToValidate.prev.deselect();
+									cardToValidate.prev.markVisited();
+									cardToValidate.select();
+								}
+								ok = cardToValidate.validate();
+								if (!ok) {
+									return cardToValidate;
+								}
 							}
 							cardToValidate = cardToValidate.next;
 						}
