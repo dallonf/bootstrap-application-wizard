@@ -58,23 +58,23 @@ li.wizard-nav-item {
 	line-height:40px;
 }
 
-.wizard-modal.modal .nav-list > li > a {
+.wizard-modal.modal .wizard-steps .nav-list > li > a {
 	background-color:#f5f5f5;
 	padding: 3px 15px 3px 20px;
 	cursor: default;
 	color:#B4B4B4;
 }
 
-.wizard-modal.modal .nav-list li.active > a {
+.wizard-modal.modal .wizard-steps .nav-list li.active > a {
 	background-color:#08C;
 }
 
-.wizard-modal.modal .nav-list > li.already-visited > a.wizard-nav-link {
+.wizard-modal.modal .wizard-steps .nav-list > li.already-visited > a.wizard-nav-link {
 	color: #08C;
 	cursor: pointer;
 }
 
-.wizard-modal.modal .nav-list > li.active > a.wizard-nav-link {
+.wizard-modal.modal .wizard-steps .nav-list > li.active > a.wizard-nav-link {
 	color:white;
 }
 

@@ -764,7 +764,13 @@
 				return currentCard;
 			}
 
-			var newCard = this._cards[i];
+			var newCard;
+			if (typeof i === 'string') {
+				newCard = this.cards[i]; 
+				i = this._cards.indexOf(newCard);
+			} else {
+				newCard = this._cards[i];	
+			}
 			if (newCard) {
 				if (newCard.isDisabled()) {
 					this.log("new card is currently disabled, returning");
