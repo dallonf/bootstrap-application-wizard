@@ -938,6 +938,10 @@
 			});
 		},
 
+		getSubmitCard: function(name) {
+			return this.el.find(".wizard-"+name);
+		},
+
 		showSubmitCard: function(name) {
 			this.log("showing "+name+" submit card");
 
