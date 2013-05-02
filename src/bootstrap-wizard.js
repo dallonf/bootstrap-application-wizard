@@ -993,11 +993,11 @@
 		 * the wizard), you call one of these 3 handlers to display a specific
 		 * card for either success, failure, or error
 		 */
-		submitSuccess: function() {
+		submitSuccess: function(resp) {
 			this.log("submit success");
 			this._submitting = false;
 				this.showSubmitCard("success");
-				this.trigger("submitSuccess");
+				this.trigger("submitSuccess", resp);
 		},
 
 		submitFailure: function() {
@@ -1072,7 +1072,7 @@
 					data: wizard.serialize(),
 					dataType: "json",
 					success: function(resp) {
-						wizard.submitSuccess();
+						wizard.submitSuccess(resp);
 						wizard.hideButtons();
 						wizard.updateProgressBar(0);
 					},
