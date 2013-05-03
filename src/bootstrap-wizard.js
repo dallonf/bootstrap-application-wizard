@@ -420,7 +420,13 @@
 		this.el.find(".wizard-card-container")
 			.append(this.markup.find(".wizard-card"))
 			.append(this.submitCards);
-		$("body").append(this.el);
+
+		if (this.args.closeable) {
+			$("body").append(this.el);	
+		} else {
+			$(markup).after(this.el);
+		}
+		
 
 		this.closeButton = this.el.find("button.wizard-close");
 		this.footer = this.el.find(".wizard-modal-footer");
