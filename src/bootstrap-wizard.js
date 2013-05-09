@@ -409,6 +409,7 @@
 				submitText: "Submit",
 				submittingText: "Submitting...",
 			},
+			modal: true,
 			closeable: true
 		};
 		$.extend(this.args, args || {});
@@ -421,7 +422,7 @@
 			.append(this.markup.find(".wizard-card"))
 			.append(this.submitCards);
 
-		if (this.args.closeable) {
+		if (this.args.modal) {
 			$("body").append(this.el);	
 		} else {
 			$(markup).after(this.el);
@@ -503,6 +504,7 @@
 		 */
 		var self = this;
 		this.closeButton.click(function() {
+			self.trigger('close');
 			self.reset();
 			self.close();
 		})
@@ -609,7 +611,7 @@
 
 		hide: function() {
 			this.log("hiding");
-			if (this.args.closeable) {
+			if (this.args.modal) {
 				this.el.modal("hide");
 			} else {
 				this.el.hide();
@@ -619,7 +621,7 @@
 
 		close: function() {
 			this.log("closing");
-			if (this.args.closeable) {
+			if (this.args.modal) {
 				this.el.modal("hide");
 			} else {
 				this.el.hide();
@@ -634,7 +636,7 @@
 				this.setCard(0);
 				this._firstShow = false;
 			}
-			if (this.args.closeable) {
+			if (this.args.modal) {
 				this.el.modal();
 			} else {
 				this.el.show();
