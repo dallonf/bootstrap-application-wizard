@@ -173,6 +173,14 @@
 			return this;
 		},
 
+		lazyReload: function() {
+			this._loaded = false;
+			if (this.isActive()) {
+				this.trigger("reload");
+			}
+			return this;
+		},
+
 		on: function() {
 			return this.wizard.on.apply(this, arguments);
 		},
