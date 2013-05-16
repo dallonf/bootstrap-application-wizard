@@ -418,13 +418,13 @@
 				submittingText: "Submitting...",
 			},
 			modal: true,
-			closeable: true
+			closeable: true,
+			dismissValidationOnFocus: false
 		};
 		$.extend(this.args, args || {});
 
 		this.markup = $(markup);
-		this.submitCards = this.markup.find(".wizard-error,.wizard-failure,\
-.wizard-success,.wizard-loading");
+		this.submitCards = this.markup.find(".wizard-error,.wizard-failure,.wizard-success,.wizard-loading");
 		this.el = $(wizard_template.join("\n"));
 		this.el.find(".wizard-card-container")
 			.append(this.markup.find(".wizard-card"))
@@ -540,6 +540,14 @@
 			}).popover("show").next(".popover");
 
 			popover.addClass("error-popover");
+
+			var self = this;
+			if (this.args.dismissValidationOnFocus) {
+				el.one('focus', function() {
+					self.destroyPopover(popover);
+				});
+			}
+
 			return popover;
 		},
 		

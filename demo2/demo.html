@@ -69,7 +69,8 @@
 	$(document).ready(function() {
 		var wizard = $('#some-wizard').wizard({
 			modal: false,
-			closeable: false
+			closeable: false,
+			dismissValidationOnFocus: true
 		});
 
 		wizard.cards['data-source-select'].on('reload', function() {
